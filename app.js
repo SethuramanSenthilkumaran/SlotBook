@@ -48,15 +48,6 @@ app.post("/", function(req, res){
   });
   user1.save();
 
-});
-    var message = {
-      from: "mailaddress.sethu@gmail.com",
-      to: "ssethuraman09@gmail.com",
-      subject: name+"-"+subject,
-      text: description,
-    };
-    let info = await transporter.sendMail(message);
-  }
   res.redirect("/");
 });
 
