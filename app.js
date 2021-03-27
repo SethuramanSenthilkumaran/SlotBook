@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -24,21 +24,39 @@ const User = mongoose.model("User", formSchema);
 
 
 app.get("/", function(req, res){
-  res.sendFile(__dirname+"/index.html");
+  res.sendFile(__dirname+"/view/index.html");
 });
 
 app.post("/", function(req, res){
 
+  const name = req.body.name;
+  const email = req.body.email;
+  const contact = req.body.contact;
+  const location = req.body.location;
+  const category = req.body.category;
+  const subject = req.body.subject;
+  const description = req.body.description;
+
   const user1 = new User({
-    name: req.body.name,
-    email: req.body.email,
-    contact: req.body.contact,
-    location: req.body.location,
-    category: req.body.category,
-    subject: req.body.subject,
-    description: req.body.description,
+    name: name,
+    email: email,
+    contact: contact,
+    location: location,
+    category: category,
+    subject: subject,
+    description: description,
   });
   user1.save();
+
+});
+    var message = {
+      from: "mailaddress.sethu@gmail.com",
+      to: "ssethuraman09@gmail.com",
+      subject: name+"-"+subject,
+      text: description,
+    };
+    let info = await transporter.sendMail(message);
+  }
   res.redirect("/");
 });
 
